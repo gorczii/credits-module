@@ -1,12 +1,12 @@
 package credits.controller;
 
-import credits.model.LoanApplication;
+import credits.model.LoanApplicationViewModel;
 import javafx.event.EventHandler;
 
 public class CreateLoanApplicationWindowController {
 
     // TODO
-    public EventHandler sendLoanApplication(LoanApplication loanApplication) {
+    public EventHandler sendLoanApplication(LoanApplicationViewModel loanApplication) {
         return e -> System.out.println("Wniosek kredytowy złożony: " + loanApplication);
 
     }

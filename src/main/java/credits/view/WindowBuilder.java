@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -47,6 +48,11 @@ public class WindowBuilder {
     public WindowBuilder withText(String text) {
         Text t = new Text(text);
         grid.add(t, 0, rowCounter++);
+        return this;
+    }
+
+    public WindowBuilder withCheckBox(CheckBox checkBox) {
+        grid.add(checkBox, 0, rowCounter++);
         return this;
     }
 

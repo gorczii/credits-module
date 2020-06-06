@@ -2,7 +2,7 @@ package credits.model;
 
 import javafx.scene.control.TextField;
 
-public class LoanApplication {
+public class LoanApplicationViewModel {
 
     public TextField userId;
     public TextField monthlyIncome;
@@ -21,7 +21,7 @@ public class LoanApplication {
     public TextField creditTypeId;
     public TextField currencyId;
 
-    public LoanApplication() {
+    public LoanApplicationViewModel() {
         userId = new TextField();
         monthlyIncome = new TextField();
         formOfEmployment = new TextField();
@@ -40,9 +40,18 @@ public class LoanApplication {
         currencyId = new TextField();
     }
 
+//    public LoanApplicationViewModel(String userId, String monthlyIncome, String formOfEmployment, String maritalStatu,
+//                                    String monthlyCostsOfLiving, String otherDebtsMonthlyPayments, String employerName,
+//                                    String employerContactData, String loanAmount, String ownContribution,
+//                                    String creditPurpose, String interestRate, String loanCollateral, String commission,
+//                                    String creditTypeId, String currencyId) {
+//
+//
+//    }
+
     @Override
     public String toString() {
-        return "LoanApplication{" +
+        return "LoanApplicationViewModel{" +
                 "userId=" + userId.getCharacters() +
                 ", monthlyIncome=" + monthlyIncome.getCharacters() +
                 ", formOfEmployment=" + formOfEmployment +
