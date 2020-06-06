@@ -14,7 +14,7 @@ public class MainWindowController {
 
     private void openCreateLoanApplicationView() {
         CreateLoanApplicationWindowController controller = new CreateLoanApplicationWindowController();
-        new CreateLoanApplicationWindow(controller).show();
+        new CreateLoanApplicationWindow(controller);
     }
 
     // TODO
@@ -25,6 +25,6 @@ public class MainWindowController {
 
     private void openAcceptLoanApplicationView() {
         AcceptLoanApplicationWindowController controller = new AcceptLoanApplicationWindowController();
-        new AcceptLoanApplicationWindow(controller).show();
+        new AcceptLoanApplicationWindow(controller);
     }
 }

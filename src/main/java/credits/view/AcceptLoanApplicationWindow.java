@@ -25,6 +25,6 @@ public class AcceptLoanApplicationWindow extends Stage {
             CheckBox checkBox = new CheckBox(application.getInfo());
             builder.withCheckBox(checkBox);
         }
-        builder.build();
+        builder.build().show();
     }
 }
