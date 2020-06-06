@@ -6,9 +6,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class CreateLoanApplicationWindow extends Stage {
+public class CreateLoanApplicationWindow {
 
     private CreateLoanApplicationWindowController controller;
+    private Stage stage;
 
     public CreateLoanApplicationWindow(CreateLoanApplicationWindowController controller) {
         super();
@@ -19,7 +20,7 @@ public class CreateLoanApplicationWindow extends Stage {
     private void init() {
         LoanApplicationViewModel la = new LoanApplicationViewModel();
 
-        Stage stage = new WindowBuilder("Nowy wniosek kredytowy")
+        this.stage = new WindowBuilder("Nowy wniosek kredytowy")
                 .withText("Nowy wniosek kredytowy", Font.font("Tahoma", FontWeight.NORMAL, 20))
                 .withTextField("Identyfikator użytkownika", la.userId)
                 .withTextField("Miesięczny dochód", la.monthlyIncome)
@@ -39,6 +40,9 @@ public class CreateLoanApplicationWindow extends Stage {
                 .withTextField("Waluta", la.currencyId)
                 .withButton("Złóż wniosek", controller.sendLoanApplication(la))
                 .build();
-        stage.show();
+    }
+
+    public void show() {
+        this.stage.show();
     }
 }

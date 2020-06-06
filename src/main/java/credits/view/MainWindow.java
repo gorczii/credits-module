@@ -7,9 +7,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 
-public class MainWindow extends Stage {
+public class MainWindow {
 
     private MainWindowController controller;
+    private Stage stage;
 
     public MainWindow(MainWindowController controller) {
         super();
@@ -19,13 +20,16 @@ public class MainWindow extends Stage {
 
     private void init() {
         TextField textField = new TextField();
-        Stage stage = new WindowBuilder("Strona główna - moduł kredytów")
+        this.stage = new WindowBuilder("Strona główna - moduł kredytów")
                 .withText("Strona główna", Font.font("Tahoma", FontWeight.NORMAL, 20))
                 .withButton("Złóż wniosek kredytowy", controller.createLoanApplication())
                 .withButton("Akceptuj wniosek", controller.acceptLoanApplication())
                 .withTextField("Imie: ", textField)
                 .build();
-        stage.show();
+    }
+
+    public void show() {
+        this.stage.show();
     }
 
 

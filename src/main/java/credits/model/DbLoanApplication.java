@@ -46,9 +46,13 @@ public class DbLoanApplication {
 
     /**
      * Tu w zamyśle miał być "tytuł", jakieś najważniejsze info czy coś takiego, do wyświetlenia na liście wniosków
+     * <p>
+     * !!!!!! MUSI BYĆ NA POCZĄTKU ID I SPACJA XD
      */
     public String getInfo() {
-        return "Użytkownik: " + userId + " | Wysokość kredytu: " + loanAmount + " | Cel kredytu: " + creditPurpose;
+        return loanApplicationId + " | Użytkownik: " + userId + " | Wysokość kredytu: " + loanAmount + " | Cel " +
+                "kredytu: "
+                + creditPurpose;
     }
 
     @Override

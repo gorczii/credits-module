@@ -23,6 +23,7 @@ public class Main extends Application {
 //        primaryStage.show();
 
         MainWindowController mainWindowController = new MainWindowController();
-        new MainWindow(mainWindowController);
+        MainWindow mainWindow = new MainWindow(mainWindowController);
+        mainWindow.show();
     }
 }
