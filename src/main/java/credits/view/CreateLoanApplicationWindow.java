@@ -1,6 +1,6 @@
 package credits.view;
 
-import credits.controller.CreateLoanApplicationWindowController;
+import credits.controller.LoanController;
 import credits.model.LoanApplicationViewModel;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 
 public class CreateLoanApplicationWindow {
 
-    private CreateLoanApplicationWindowController controller;
+    private LoanController controller;
     private Stage stage;
 
-    public CreateLoanApplicationWindow(CreateLoanApplicationWindowController controller) {
+    public CreateLoanApplicationWindow(LoanController controller) {
         super();
         this.controller = controller;
         init();
@@ -20,7 +20,7 @@ public class CreateLoanApplicationWindow {
     private void init() {
         LoanApplicationViewModel la = new LoanApplicationViewModel();
 
-        this.stage = new WindowBuilder("Nowy wniosek kredytowy")
+        this.stage = new WindowBuilder("Nowy wniosek kredytowy", 600, 700)
                 .withText("Nowy wniosek kredytowy", Font.font("Tahoma", FontWeight.NORMAL, 20))
                 .withTextField("Identyfikator użytkownika", la.userId)
                 .withTextField("Miesięczny dochód", la.monthlyIncome)

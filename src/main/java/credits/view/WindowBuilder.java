@@ -1,6 +1,5 @@
 package credits.view;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,8 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
 
 /**
  * Dodaje kolejne nody jeden pod drugim, w zależności od tego w jakiej kolejności były wywołane meotdy -with...
@@ -28,10 +25,10 @@ public class WindowBuilder {
     private int rowCounter = 0;
 
 
-    public WindowBuilder(String title) {
+    public WindowBuilder(String title, int width, int height) {
         this.primaryStage = new Stage();
         primaryStage.setTitle(title);
-        initGrid();
+        initGrid(width, height);
     }
 
     public WindowBuilder withButton(String text, EventHandler onClick) {
@@ -66,18 +63,23 @@ public class WindowBuilder {
         return this;
     }
 
+    public WindowBuilder withText(Text text) {
+        grid.add(text, 0, rowCounter++);
+        return this;
+    }
+
     public Stage build() {
         return primaryStage;
     }
 
-    private void initGrid() {
+    private void initGrid(int width, int height) {
         this.grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, width, height);
         primaryStage.setScene(scene);
     }
 

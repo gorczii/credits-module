@@ -2,33 +2,32 @@ package credits.controller;
 
 import credits.view.AcceptLoanApplicationWindow;
 import credits.view.CreateLoanApplicationWindow;
+import credits.view.ShowRepaymentScheduleWindow;
 import javafx.event.EventHandler;
 
 public class MainWindowController {
 
-    // TODO
-    public EventHandler createLoanApplication() {
+    public EventHandler openNewLoanApplicationWindow() {
         return e -> {
-            openCreateLoanApplicationView();
+            LoanController controller = new LoanController();
+            new CreateLoanApplicationWindow(controller).show();
             System.out.println("Otwarto nowy wniosek kredytowy");
         };
     }
 
-    private void openCreateLoanApplicationView() {
-        CreateLoanApplicationWindowController controller = new CreateLoanApplicationWindowController();
-        new CreateLoanApplicationWindow(controller).show();
-    }
-
-    // TODO
-    public EventHandler acceptLoanApplication() {
+    public EventHandler openAcceptLoanApplicationWindow() {
         return e -> {
-            openAcceptLoanApplicationView();
-            System.out.println("Wniosek kredytowy zaakceptowany");
+            LoanController controller = new LoanController();
+            new AcceptLoanApplicationWindow(controller).show();
+            System.out.println("Otwarto panel akceptowania/odrzucania wniosków");
         };
     }
 
-    private void openAcceptLoanApplicationView() {
-        AcceptLoanApplicationWindowController controller = new AcceptLoanApplicationWindowController();
-        new AcceptLoanApplicationWindow(controller).show();
+    public EventHandler openRepaymentScheduleWindow() {
+        return e -> {
+            RepaymentScheduleController controller = new RepaymentScheduleController();
+            new ShowRepaymentScheduleWindow(controller).show();
+            System.out.println("Otwarto panel tworzenia harmongramów spłat kredytów");
+        };
     }
 }

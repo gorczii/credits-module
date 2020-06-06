@@ -1,6 +1,6 @@
 package credits.view;
 
-import credits.controller.AcceptLoanApplicationWindowController;
+import credits.controller.LoanController;
 import credits.model.DbLoanApplication;
 import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 
 public class AcceptLoanApplicationWindow {
 
-    private final AcceptLoanApplicationWindowController controller;
+    private final LoanController controller;
     private Stage stage;
 
-    public AcceptLoanApplicationWindow(AcceptLoanApplicationWindowController controller) {
+    public AcceptLoanApplicationWindow(LoanController controller) {
         super();
         this.controller = controller;
         init();
@@ -23,7 +23,7 @@ public class AcceptLoanApplicationWindow {
     private void init() {
         Collection<DbLoanApplication> loanApplications = controller.getAllLoanApplications();
 
-        WindowBuilder builder = new WindowBuilder("Wnioski kredytowe");
+        WindowBuilder builder = new WindowBuilder("Wnioski kredytowe", 600, 275);
         List<CheckBox> checkBoxes = loanApplications.stream()
                 .map(la -> new CheckBox(la.getInfo()))
                 .collect(Collectors.toList());
@@ -31,6 +31,7 @@ public class AcceptLoanApplicationWindow {
         checkBoxes.forEach(builder::withCheckBox);
 
         builder.withButton("Zaakceptuj wybrane wnioski", controller.acceptLoanApplications(checkBoxes));
+        builder.withButton("Odrzuć wybrane wnioski", controller.rejectLoanApplications(checkBoxes));
         this.stage = builder.build();
     }
 

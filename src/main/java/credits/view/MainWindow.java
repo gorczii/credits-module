@@ -1,7 +1,6 @@
 package credits.view;
 
 import credits.controller.MainWindowController;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -19,12 +18,12 @@ public class MainWindow {
     }
 
     private void init() {
-        TextField textField = new TextField();
-        this.stage = new WindowBuilder("Strona główna - moduł kredytów")
-                .withText("Strona główna", Font.font("Tahoma", FontWeight.NORMAL, 20))
-                .withButton("Złóż wniosek kredytowy", controller.createLoanApplication())
-                .withButton("Akceptuj wniosek", controller.acceptLoanApplication())
-                .withTextField("Imie: ", textField)
+        this.stage = new WindowBuilder("Moduł kredytów", 500, 275)
+                .withText("KREDYTY", Font.font("Tahoma", FontWeight.NORMAL, 20))
+                .withText("Strona główna", Font.font("Tahoma", FontWeight.NORMAL, 14))
+                .withButton("Nowy wniosek kredytowy", controller.openNewLoanApplicationWindow())
+                .withButton("Akceptuj/odrzuć wnioski", controller.openAcceptLoanApplicationWindow())
+                .withButton("Stwórz harmonogram spłat", controller.openRepaymentScheduleWindow())
                 .build();
     }
 
