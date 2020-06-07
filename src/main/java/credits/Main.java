@@ -1,9 +1,12 @@
 package credits;
 
+import credits.SQL.ConnectionManager;
 import credits.controller.MainWindowController;
 import credits.view.MainWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.sql.*;
 
 public class Main extends Application {
 
@@ -13,6 +16,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+
+
+        ResultSet resultSet = null;
+
+
         MainWindowController mainWindowController = new MainWindowController();
         MainWindow mainWindow = new MainWindow(mainWindowController);
         mainWindow.show();
