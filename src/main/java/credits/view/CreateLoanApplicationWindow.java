@@ -2,6 +2,7 @@ package credits.view;
 
 import credits.SQL.Model.CreditType;
 import credits.SQL.Model.Currency;
+import credits.SQL.Model.MaritalStatus;
 import credits.SQL.Model.User;
 import credits.SQL.SqlDataProvider;
 import credits.controller.LoanController;
@@ -46,9 +47,9 @@ public class CreateLoanApplicationWindow {
             Pattern validEditingState = Pattern.compile("(([1-9][0-9]*)|0)?(\\.[0-9]{0,2})?");
             String text = c.getControlNewText();
             if (validEditingState.matcher(text).matches()) {
-                return c ;
+                return c;
             } else {
-                return null ;
+                return null;
             }
         };
 
@@ -66,13 +67,16 @@ public class CreateLoanApplicationWindow {
         la.userId.getItems().addAll(users);
         la.userId.setValue(la.userId.getItems().get(0));
 
+        la.maritalStatue.getItems().addAll(MaritalStatus.getStatues());
+        la.maritalStatue.setValue(MaritalStatus.getStatues()[0]);
+
         this.stage = new WindowBuilder("Nowy wniosek kredytowy", 600, 700)
                 .withText("Nowy wniosek kredytowy", Font.font("Tahoma", FontWeight.NORMAL, 20))
                 .withComboBox("Identyfikator użytkownika", la.userId)
                 .withComboBox("Waluta", la.currency)
                 .withFormattedTextField("Miesięczny dochód", la.monthlyIncome, new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleFilter))
                 .withTextField("Forma zatrudnienia", la.formOfEmployment)
-                .withTextField("Stan cywilny", la.maritalStatue)
+                .withComboBox("Stan cywilny", la.maritalStatue)
                 .withFormattedTextField("Miesięczne wydatki", la.monthlyCostsOfLiving, new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleFilter))
                 .withFormattedTextField("Inne miesięczne wydatki", la.otherDebtsMonthlyPayments, new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleFilter))
                 .withTextField("Nazwa pracodawcy", la.employerName)

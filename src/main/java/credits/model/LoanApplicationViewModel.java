@@ -2,6 +2,7 @@ package credits.model;
 
 import credits.SQL.Model.CreditType;
 import credits.SQL.Model.Currency;
+import credits.SQL.Model.MaritalStatus;
 import credits.SQL.Model.User;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -11,7 +12,7 @@ public class LoanApplicationViewModel {
     public ComboBox<User> userId;
     public TextField monthlyIncome;
     public TextField formOfEmployment;
-    public TextField maritalStatue;
+    public ComboBox<String> maritalStatue;
     public TextField monthlyCostsOfLiving;
     public TextField otherDebtsMonthlyPayments;
     public TextField employerName;
@@ -29,7 +30,7 @@ public class LoanApplicationViewModel {
         userId = new ComboBox<>();
         monthlyIncome = new TextField();
         formOfEmployment = new TextField();
-        maritalStatue = new TextField();
+        maritalStatue = new ComboBox<>();
         monthlyCostsOfLiving = new TextField();
         otherDebtsMonthlyPayments = new TextField();
         employerName = new TextField();
@@ -59,7 +60,7 @@ public class LoanApplicationViewModel {
                 "userId=" + userId.toString() +
                 ", monthlyIncome=" + monthlyIncome.getCharacters() +
                 ", formOfEmployment=" + formOfEmployment +
-                ", maritalStatue=" + maritalStatue.getCharacters() +
+                ", maritalStatue=" + maritalStatue.toString() +
                 ", monthlyCostsOfLiving=" + monthlyCostsOfLiving.getCharacters() +
                 ", otherDebtsMonthlyPayments=" + otherDebtsMonthlyPayments.getCharacters() +
                 ", employerName=" + employerName.getCharacters() +

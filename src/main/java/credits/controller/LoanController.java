@@ -50,7 +50,6 @@ public class LoanController {
     private boolean isEmpty(LoanApplicationViewModel loanApplication) {
         return loanApplication.monthlyIncome.getText().isEmpty()
             || loanApplication.formOfEmployment.getText().isEmpty()
-            || loanApplication.maritalStatue.getText().isEmpty()
             || loanApplication.monthlyCostsOfLiving.getText().isEmpty()
             || loanApplication.otherDebtsMonthlyPayments.getText().isEmpty()
             || loanApplication.employerName.getText().isEmpty()
@@ -71,7 +70,7 @@ public class LoanController {
         int userId = viewModel.userId.getValue().getId();
         double monthlyIncome = Double.parseDouble(viewModel.monthlyIncome.getText());
         String formOfEmployment = viewModel.formOfEmployment.getText();
-        String martialStatue = viewModel.maritalStatue.getText();
+        String martialStatue = viewModel.maritalStatue.getValue();
         double monthlyCostOfLiving = Double.parseDouble(viewModel.monthlyCostsOfLiving.getText());
         double otherDebtsMonthlyPayments = Double.parseDouble(viewModel.otherDebtsMonthlyPayments.getText());
         String employerName = viewModel.monthlyIncome.getText();
