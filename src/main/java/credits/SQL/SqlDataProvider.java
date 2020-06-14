@@ -16,8 +16,7 @@ public class SqlDataProvider {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAllCurrencies)) {
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int currencyId = resultSet.getInt(1);
                 String currencyShortName = resultSet.getString(2);
                 String currencyName = resultSet.getString(3);
@@ -35,8 +34,7 @@ public class SqlDataProvider {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAllCreditTypes)) {
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int creditTypeID = resultSet.getInt(1);
                 String creditTypeName = resultSet.getString(2);
                 String creditTypeDescription = resultSet.getString(3);
@@ -54,8 +52,7 @@ public class SqlDataProvider {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAllUsers)) {
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int userId = resultSet.getInt(1);
                 int idId = resultSet.getInt(2);
                 String firstNames = resultSet.getString(3);
@@ -64,7 +61,7 @@ public class SqlDataProvider {
                 Date dateOfBirth = resultSet.getDate(6);
                 int registredAddresId = resultSet.getInt(7);
                 int contactAddresId = resultSet.getInt(8);
-                String email =  resultSet.getString(9);
+                String email = resultSet.getString(9);
                 String phoneNumber = resultSet.getString(10);
 
                 User user = new User(userId, idId, firstNames, lastNames, pesel, dateOfBirth, registredAddresId, contactAddresId, email, phoneNumber);
@@ -107,12 +104,11 @@ public class SqlDataProvider {
 
     static public Collection<LoanApplication> getAcceptedLoans() {
 
-        Collection<LoanApplication> loanApplications = new LinkedList<LoanApplication>();
+        Collection<LoanApplication> loanApplications = new LinkedList<>();
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAcceptedLoanApplications)) {
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int loanApplicationId = resultSet.getInt(1);
                 int userId = resultSet.getInt(2);
                 double monthlyIncome = resultSet.getDouble(3);
@@ -131,9 +127,9 @@ public class SqlDataProvider {
                 int creditTypeId = resultSet.getInt(16);
                 String currency = resultSet.getString(17);
 
-                LoanApplication loanApplication = new LoanApplication(loanApplicationId, userId, monthlyIncome,formOfEmployment,
-                        martialStatus,costsOfLiving,otherDebts,employerName,employerContact,loanAmmount,ownContribution,creditPurpose
-                        ,interestRate,loanCollateral,commission, creditTypeId,currency);
+                LoanApplication loanApplication = new LoanApplication(loanApplicationId, userId, monthlyIncome, formOfEmployment,
+                        martialStatus, costsOfLiving, otherDebts, employerName, employerContact, loanAmmount, ownContribution, creditPurpose
+                        , interestRate, loanCollateral, commission, creditTypeId, currency);
                 loanApplications.add(loanApplication);
             }
         } catch (SQLException ex) {
@@ -209,8 +205,7 @@ public class SqlDataProvider {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAllCredits)) {
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int creditId = resultSet.getInt(1);
                 int accountId = resultSet.getInt(2);
                 int creditTypeId = resultSet.getInt(3);
@@ -232,8 +227,7 @@ public class SqlDataProvider {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAllDocumentTypes)) {
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
 

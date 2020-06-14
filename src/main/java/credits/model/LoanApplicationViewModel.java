@@ -25,6 +25,7 @@ public class LoanApplicationViewModel {
     public TextField commission;
     public ComboBox<CreditType> creditType;
     public ComboBox<Currency> currency;
+    public TextField numberOfRepayments;
 
     public LoanApplicationViewModel() {
         userId = new ComboBox<>();
@@ -43,6 +44,7 @@ public class LoanApplicationViewModel {
         commission = new TextField();
         creditType = new ComboBox<>();
         currency = new ComboBox<>();
+        numberOfRepayments = new TextField();
     }
 
 //    public LoanApplicationViewModel(String userId, String monthlyIncome, String formOfEmployment, String maritalStatu,
@@ -73,6 +75,7 @@ public class LoanApplicationViewModel {
                 ", commission=" + commission.getCharacters() +
                 ", creditTypeId=" + creditType.toString() +
                 ", currencyId=" + currency.toString() +
+                ", numberOfRepayments=" + numberOfRepayments.toString() +
                 '}';
     }
 }

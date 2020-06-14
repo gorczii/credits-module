@@ -28,8 +28,8 @@ public class CreateRepaymentScheduleWindow {
         RepaymentScheduleViewModel rs = new RepaymentScheduleViewModel(loanApplication);
         Text singleInst = new Text("\n");
 
-        WindowBuilder builder = new WindowBuilder("Nowy harmonogram spłat", 800, 400)
-                .withText("Nowy harmonogram spłat", Font.font("Tahoma", FontWeight.NORMAL, 20))
+        WindowBuilder builder = new WindowBuilder("Modyfikuj harmonogram spłat", 800, 400)
+                .withText("Modyfikuj harmonogram spłat", Font.font("Tahoma", FontWeight.NORMAL, 20))
                 .withText(loanApplication.getInfo(), Font.font("Tahoma", FontWeight.NORMAL, 12))
                 .withTextField("Kwota kredytu", rs.loanAmount)
                 .withTextField("Liczba rat", rs.numberOfRepayments)

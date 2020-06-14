@@ -1,5 +1,6 @@
 package credits.controller;
 
+import com.sun.javafx.binding.StringFormatter;
 import credits.SQL.ConnectionManager;
 import credits.SQL.Model.LoanApplicationForm;
 import credits.SQL.SqlDataProvider;
@@ -12,6 +13,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Labeled;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.sql.*;
 import java.util.Arrays;
@@ -36,7 +39,7 @@ public class LoanController {
         return e -> {
             try {
                 LoanApplicationForm form = toApplicationForm(loanApplication);
-                if(SqlDataProvider.makeLoanApplication(form)) {
+                if (SqlDataProvider.makeLoanApplication(form)) {
                     InfoModal infoModal = new InfoModal("Sukces", "Pomyślnie złożono wniosek!");
                     infoModal.show();
                 }
@@ -51,16 +54,17 @@ public class LoanController {
 
     private boolean isEmpty(LoanApplicationViewModel loanApplication) {
         return loanApplication.monthlyIncome.getText().isEmpty()
-            || loanApplication.monthlyCostsOfLiving.getText().isEmpty()
-            || loanApplication.otherDebtsMonthlyPayments.getText().isEmpty()
-            || loanApplication.employerName.getText().isEmpty()
-            || loanApplication.employerContactData.getText().isEmpty()
-            || loanApplication.loanAmount.getText().isEmpty()
-            || loanApplication.ownContribution.getText().isEmpty()
-            || loanApplication.creditPurpose.getText().isEmpty()
-            || loanApplication.interestRate.getText().isEmpty()
-            || loanApplication.loanCollateral.getText().isEmpty()
-            || loanApplication.commission.getText().isEmpty();
+                || loanApplication.monthlyCostsOfLiving.getText().isEmpty()
+                || loanApplication.otherDebtsMonthlyPayments.getText().isEmpty()
+                || loanApplication.employerName.getText().isEmpty()
+                || loanApplication.employerContactData.getText().isEmpty()
+                || loanApplication.loanAmount.getText().isEmpty()
+                || loanApplication.ownContribution.getText().isEmpty()
+                || loanApplication.creditPurpose.getText().isEmpty()
+                || loanApplication.interestRate.getText().isEmpty()
+                || loanApplication.loanCollateral.getText().isEmpty()
+                || loanApplication.commission.getText().isEmpty()
+                || loanApplication.numberOfRepayments.getText().isEmpty();
     }
 
     private LoanApplicationForm toApplicationForm(LoanApplicationViewModel viewModel) throws Exception {
@@ -84,6 +88,7 @@ public class LoanController {
         double commission = Double.parseDouble(viewModel.commission.getText());
         int creditTypeId = viewModel.creditType.getValue().getId();
         int currencyId = viewModel.currency.getValue().getId();
+        int numberOfRepayments = Integer.parseInt(viewModel.numberOfRepayments.getText());
 
         if (loanAmount <= 0.0) {
             throw new InputException("Wysokość kredytu musi być większa od 0.0");
@@ -100,7 +105,7 @@ public class LoanController {
 
         return new LoanApplicationForm(userId, monthlyIncome, formOfEmployment, martialStatue, monthlyCostOfLiving, otherDebtsMonthlyPayments,
                 employerName, employerContactData, loanAmount, ownContribution, creditPurpose, interestRate, loanCollateral, commission,
-                creditTypeId, currencyId, 0);
+                creditTypeId, currencyId, numberOfRepayments);
 
     }
 
@@ -111,8 +116,7 @@ public class LoanController {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAllLoanApplications)) {
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int loanApplicationId = resultSet.getInt(1);
                 int userId = resultSet.getInt(2);
                 double monthlyIncome = resultSet.getDouble(3);
@@ -131,9 +135,9 @@ public class LoanController {
                 int creditTypeId = resultSet.getInt(16);
                 String currency = resultSet.getString(17);
 
-                LoanApplication loanApplication = new LoanApplication(loanApplicationId, userId, monthlyIncome,formOfEmployment,
-                martialStatus,costsOfLiving,otherDebts,employerName,employerContact,loanAmmount,ownContribution,creditPurpose
-                        ,interestRate,loanCollateral,commission, creditTypeId,currency);
+                LoanApplication loanApplication = new LoanApplication(loanApplicationId, userId, monthlyIncome, formOfEmployment,
+                        martialStatus, costsOfLiving, otherDebts, employerName, employerContact, loanAmmount, ownContribution, creditPurpose
+                        , interestRate, loanCollateral, commission, creditTypeId, currency);
                 loanApplications.add(loanApplication);
             }
         } catch (SQLException ex) {
@@ -142,19 +146,31 @@ public class LoanController {
         return loanApplications;
     }
 
-
+    public EventHandler calculateRepaymentAmount(LoanApplicationViewModel la, Text repaymentAmount) {
+        return e -> {
+            try {
+                double amount = Double.parseDouble(la.loanAmount.getText());
+                int numberOfRepayments = Integer.parseInt(la.numberOfRepayments.getText());
+                double repayment = amount / numberOfRepayments;
+                repaymentAmount.setText("Wysokość raty kredytu: " + String.format("%.2f", repayment));
+            } catch (Exception ex) {
+                InfoModal infoModal = new InfoModal("Błąd", "Wystąpił błąd w obliczaniu raty kredytu");
+                infoModal.show();
+            }
+        };
+    }
 
     public EventHandler acceptLoanApplications(List<CheckBox> checkBoxes) {
         return e -> {
             List<Integer> acceptedApplicationsIds = getChosenApplicationsIds(checkBoxes);
             for (Integer id : acceptedApplicationsIds) {
-                if(acceptLoanApplication(id)) {
+                if (acceptLoanApplication(id)) {
                     System.out.println("Wniosek " + id + " zaakceptowany");
                 } else {
                     System.out.println("Wystąpił błąd przy akceptacji wniosku " + id);
                 }
             }
-            ((Node)(e.getSource())).getScene().getWindow().hide();
+            ((Node) (e.getSource())).getScene().getWindow().hide();
         };
     }
 
@@ -162,13 +178,13 @@ public class LoanController {
         return e -> {
             List<Integer> rejectedApplicationsIds = getChosenApplicationsIds(checkBoxes);
             for (Integer id : rejectedApplicationsIds) {
-                if(rejectLoanApplication(id)) {
+                if (rejectLoanApplication(id)) {
                     System.out.println("Wniosek " + id + " odrzucony");
                 } else {
                     System.out.println("Wystąpił błąd przy odrzuceniu wniosku " + id);
                 }
             }
-            ((Node)(e.getSource())).getScene().getWindow().hide();
+            ((Node) (e.getSource())).getScene().getWindow().hide();
         };
     }
 

@@ -12,7 +12,6 @@ public class RepaymentScheduleController {
 
 
     public Collection<LoanApplication> getAcceptedLoanApplications() {
-        // TODO: pobierz zaakceptowane loan applications z bazy
         return new SqlDataProvider().getAcceptedLoans();
     }
 
