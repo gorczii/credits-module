@@ -11,7 +11,7 @@ public class LoanApplicationViewModel {
 
     public ComboBox<User> userId;
     public TextField monthlyIncome;
-    public TextField formOfEmployment;
+    public ComboBox<String> formOfEmployment;
     public ComboBox<String> maritalStatue;
     public TextField monthlyCostsOfLiving;
     public TextField otherDebtsMonthlyPayments;
@@ -29,7 +29,7 @@ public class LoanApplicationViewModel {
     public LoanApplicationViewModel() {
         userId = new ComboBox<>();
         monthlyIncome = new TextField();
-        formOfEmployment = new TextField();
+        formOfEmployment = new ComboBox<>();
         maritalStatue = new ComboBox<>();
         monthlyCostsOfLiving = new TextField();
         otherDebtsMonthlyPayments = new TextField();

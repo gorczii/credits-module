@@ -1,9 +1,6 @@
 package credits.view;
 
-import credits.SQL.Model.CreditType;
-import credits.SQL.Model.Currency;
-import credits.SQL.Model.MaritalStatus;
-import credits.SQL.Model.User;
+import credits.SQL.Model.*;
 import credits.SQL.SqlDataProvider;
 import credits.controller.LoanController;
 import credits.model.LoanApplicationViewModel;
@@ -70,12 +67,15 @@ public class CreateLoanApplicationWindow {
         la.maritalStatue.getItems().addAll(MaritalStatus.getStatues());
         la.maritalStatue.setValue(MaritalStatus.getStatues()[0]);
 
+        la.formOfEmployment.getItems().addAll(FormOfEmployment.getForms());
+        la.formOfEmployment.setValue(FormOfEmployment.getForms()[0]);
+
         this.stage = new WindowBuilder("Nowy wniosek kredytowy", 600, 700)
                 .withText("Nowy wniosek kredytowy", Font.font("Tahoma", FontWeight.NORMAL, 20))
                 .withComboBox("Identyfikator użytkownika", la.userId)
                 .withComboBox("Waluta", la.currency)
                 .withFormattedTextField("Miesięczny dochód", la.monthlyIncome, new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleFilter))
-                .withTextField("Forma zatrudnienia", la.formOfEmployment)
+                .withComboBox("Forma zatrudnienia", la.formOfEmployment)
                 .withComboBox("Stan cywilny", la.maritalStatue)
                 .withFormattedTextField("Miesięczne wydatki", la.monthlyCostsOfLiving, new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleFilter))
                 .withFormattedTextField("Inne miesięczne wydatki", la.otherDebtsMonthlyPayments, new TextFormatter<Double>(new DoubleStringConverter(), 0.0, doubleFilter))
