@@ -82,4 +82,7 @@ public class Statements {
             "      ,[credit_terms_id]\n" +
             "      ,[loan_application_id]\n" +
             "  FROM [credits].[dbo].[credit]";
+    public static String getAllDocumentTypes = "SELECT [document_type_id]\n" +
+            "      ,[type_name]\n" +
+            "  FROM [credits].[dbo].[document_type]";
 }

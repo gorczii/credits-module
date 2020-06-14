@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.util.Date;
+
 
 /**
  * Dodaje kolejne nody jeden pod drugim, w zależności od tego w jakiej kolejności były wywołane meotdy -with...
@@ -41,6 +43,13 @@ public class WindowBuilder {
         Label l = new Label(label);
         grid.add(l, 0, rowCounter);
         grid.add(textField, 1, rowCounter++);
+        return this;
+    }
+
+    public WindowBuilder withDatePicker(String label, DatePicker datePicker) {
+        Label l = new Label(label);
+        grid.add(l, 0, rowCounter);
+        grid.add(datePicker, 1, rowCounter++);
         return this;
     }
 

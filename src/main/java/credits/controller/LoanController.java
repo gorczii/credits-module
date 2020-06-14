@@ -90,7 +90,7 @@ public class LoanController {
         }
 
         if (ownContribution > loanAmount) {
-            throw new InputException("Wkłąd własny nie może być większy od wysokości kredytu");
+            throw new InputException("Wkład własny nie może być większy od wysokości kredytu");
         }
 
         if (commission > loanAmount) {

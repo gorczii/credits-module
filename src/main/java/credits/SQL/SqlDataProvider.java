@@ -2,6 +2,7 @@ package credits.SQL;
 
 
 import credits.SQL.Model.*;
+import sun.awt.image.ImageWatched;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -225,5 +226,23 @@ public class SqlDataProvider {
         }
         return credits;
     }
-    
+
+    static public Collection<DocumentType> getAllDocumentTypes() {
+        Collection<DocumentType> documentTypes = new LinkedList<>();
+        try (Connection connection = ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(Statements.getAllDocumentTypes)) {
+            while (resultSet.next())
+            {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+
+                DocumentType documentType = new DocumentType(id, name);
+                documentTypes.add(documentType);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return documentTypes;
+    }
 }
