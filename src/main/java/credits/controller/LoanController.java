@@ -1,6 +1,5 @@
 package credits.controller;
 
-import credits.MockLoanApplications;
 import credits.SQL.ConnectionManager;
 import credits.SQL.Statements;
 import credits.model.DbLoanApplication;
@@ -9,22 +8,27 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class LoanController {
 
-    public EventHandler<ActionEvent> sendLoanApplication(LoanApplicationViewModel loanApplication) {
-        // TODO: wysłać wniosek do db
+    public EventHandler<ActionEvent> sendLoanApplication(LoanApplicationViewModel loanApplication,
+                                                         ComboBox creditTypeComboBox, ComboBox currencyComboBox) {
+        return e -> {
+            String creditType = (String) creditTypeComboBox.getValue();
+            String currency = (String) currencyComboBox.getValue();
+            // TODO: wysłać wniosek do db
 
-        return e -> System.out.println("Wniosek kredytowy złożony: " + loanApplication);
+            System.out.println("Wniosek kredytowy złożony: " + loanApplication);
+        };
     }
 
     public Collection<DbLoanApplication> getAllLoanApplications() {
@@ -127,5 +131,15 @@ public class LoanController {
 
     private int extractLoanApplicationId(String loanApplicationInfo) {
         return new Integer(loanApplicationInfo.substring(0, loanApplicationInfo.indexOf(" ")));
+    }
+
+    // TODO
+    public List<String> getCreditTypes() {
+        return Arrays.asList("Kredyt hipoteczny", "Kredyt walutowy", "Jeszczejakiś kredyt");
+    }
+
+    // TODO
+    public List<String> getCurrencies() {
+        return Arrays.asList("PLN", "EUR", "USD", "XDD");
     }
 }

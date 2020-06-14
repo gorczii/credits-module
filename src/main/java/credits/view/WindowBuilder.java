@@ -4,10 +4,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -42,6 +39,13 @@ public class WindowBuilder {
         Label l = new Label(label);
         grid.add(l, 0, rowCounter);
         grid.add(textField, 1, rowCounter++);
+        return this;
+    }
+
+    public WindowBuilder withComboBox(String label, ComboBox comboBox) {
+        Label l = new Label(label);
+        grid.add(l, 0, rowCounter);
+        grid.add(comboBox, 1, rowCounter++);
         return this;
     }
 
