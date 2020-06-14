@@ -27,6 +27,17 @@ public class Credit {
         return loanApplicationId;
     }
 
+    @Override
+    public String toString() {
+        return "Credit{" +
+                "creditId=" + creditId +
+                ", accountId=" + accountId +
+                ", creditTypeId=" + creditTypeId +
+                ", creditTermsId=" + creditTermsId +
+                ", loanApplicationId=" + loanApplicationId +
+                '}';
+    }
+
     public Credit(int creditId, int accountId, int creditTypeId, int creditTermsId, int loanApplicationId) {
         this.creditId = creditId;
         this.accountId = accountId;

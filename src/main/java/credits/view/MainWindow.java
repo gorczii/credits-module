@@ -24,6 +24,7 @@ public class MainWindow {
                 .withButton("Nowy wniosek kredytowy", controller.openNewLoanApplicationWindow())
                 .withButton("Akceptuj/odrzuć wnioski", controller.openAcceptLoanApplicationWindow())
                 .withButton("Modyfikuj harmonogram spłat", controller.openRepaymentScheduleWindow())
+                .withButton("Pokaż harmonogram spłat", controller.openShowRepaymentsWindows())
                 .withButton("Dodaj nowego użytkownika", controller.openNewUserWindow())
                 .build();
     }

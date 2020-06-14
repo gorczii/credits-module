@@ -6,12 +6,12 @@ import javafx.stage.Stage;
 
 import java.util.Collection;
 
-public class ShowRepaymentScheduleWindow {
+public class OldRepaymentScheduleWindow {
 
     private final RepaymentScheduleController controller;
     private Stage stage;
 
-    public ShowRepaymentScheduleWindow(RepaymentScheduleController controller) {
+    public OldRepaymentScheduleWindow(RepaymentScheduleController controller) {
         super();
         this.controller = controller;
         init();

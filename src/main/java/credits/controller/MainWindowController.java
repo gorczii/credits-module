@@ -1,9 +1,6 @@
 package credits.controller;
 
-import credits.view.AcceptLoanApplicationWindow;
-import credits.view.CreateLoanApplicationWindow;
-import credits.view.ShowNewUserWindow;
-import credits.view.ShowRepaymentScheduleWindow;
+import credits.view.*;
 import javafx.event.EventHandler;
 
 public class MainWindowController {
@@ -27,8 +24,16 @@ public class MainWindowController {
     public EventHandler openRepaymentScheduleWindow() {
         return e -> {
             RepaymentScheduleController controller = new RepaymentScheduleController();
-            new ShowRepaymentScheduleWindow(controller).show();
+            new OldRepaymentScheduleWindow(controller).show();
             System.out.println("Otwarto panel tworzenia harmongramów spłat kredytów");
+        };
+    }
+
+    public EventHandler openShowRepaymentsWindows() {
+        return e -> {
+            ShowRepaymentsController controller = new ShowRepaymentsController();
+            new ShowRepaymentsWindow(controller).show();
+            System.out.println("Otwarto panel tworzenia nowego użytkownika");
         };
     }
 

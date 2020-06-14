@@ -17,11 +17,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SqlDataProvider provider = new SqlDataProvider();
-        System.out.println(provider.getAllCreditTypes());
-        System.out.println(provider.getAllCurrencies());
-        System.out.println(provider.getAllUsers());
-
 
         MainWindowController mainWindowController = new MainWindowController();
         MainWindow mainWindow = new MainWindow(mainWindowController);

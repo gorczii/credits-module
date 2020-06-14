@@ -85,4 +85,32 @@ public class Statements {
     public static String getAllDocumentTypes = "SELECT [document_type_id]\n" +
             "      ,[type_name]\n" +
             "  FROM [credits].[dbo].[document_type]";
+
+    public static String getUserCredits = "SELECT [credit_id]\n" +
+            "      ,[credit].[account_id]\n" +
+            "      ,[credit_type_id]\n" +
+            "      ,[credit_terms_id]\n" +
+            "      ,[loan_application_id]\n" +
+            "  FROM [credits].[dbo].[credit]\n" +
+            "  JOIN [credits].[dbo].[user_account] ON [credits].[dbo].[credit].[account_id] = [credits].[dbo].[user_account].[account_id] \n" +
+            "  WHERE [credits].[dbo].[user_account].[user_id] = ?";
+    public static String getCreditRepayments = "SELECT [repayment_id]\n" +
+            "      ,[credit_id]\n" +
+            "      ,[amount]\n" +
+            "      ,[timestamp]\n" +
+            "  FROM [credits].[dbo].[repayment]\n" +
+            "  WHERE  [credits].[dbo].[repayment].[credit_id] = ?";
+
+    public static String getCreditScheduledRepayment = "SELECT [repayment_schedule_id]\n" +
+            "      ,[credit_id]\n" +
+            "      ,[installment_amount]\n" +
+            "      ,[repayment_date]\n" +
+            "  FROM [credits].[dbo].[repayment_schedule]\n" +
+            "  WHERE [credits].[dbo].[repayment_schedule].[credit_id] = ?";
+
+    public static String insertDocument = "{call dbo.insertDocument(?, ?, ?, ?)}";
+
+    public static String insertAdress = "{call dbo.insertAdress(?, ?, ?, ?, ?, ?)}";
+
+    public static String addUser = "{call dbo.insertUser(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 }

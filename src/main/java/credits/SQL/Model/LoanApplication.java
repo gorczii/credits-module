@@ -50,6 +50,7 @@ public class LoanApplication {
      * !!!!!! MUSI BYĆ NA POCZĄTKU ID I SPACJA XD
      */
     public String getInfo() {
+        //TODO Może ładniej jakoś Ci się to uda?
         return loanApplicationId + " | Użytkownik: " + userId + " | Wysokość kredytu: " + loanAmount + " | Cel " +
                 "kredytu: "
                 + creditPurpose;

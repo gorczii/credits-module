@@ -32,8 +32,10 @@ public class ShowNewUserWindow {
         nm.documentType.getItems().addAll(SqlDataProvider.getAllDocumentTypes());
         nm.documentType.setValue(nm.documentType.getItems().get(0));
 
+        nm.sameAdress.setOnAction(controller.onSameAdressChecked(nm));
+
         this.stage = new WindowBuilder("Nowy użytkownik", 600, 700)
-                .withText("Nowy wniosek kredytowy", Font.font("Tahoma", FontWeight.NORMAL, 20))
+                .withText("Dodaj nowego użytkownika", Font.font("Tahoma", FontWeight.NORMAL, 20))
                 .withComboBox("Typ dokumentu", nm.documentType)
                 .withTextField("Numer dokumentu", nm.documentNumber)
                 .withDatePicker("Data dokumentu", nm.documentValidityDate)
@@ -43,6 +45,20 @@ public class ShowNewUserWindow {
                 .withDatePicker("Data urodzenia", nm.dateOfBirth)
                 .withTextField("email", nm.email)
                 .withTextField("Numer telefonu", nm.phoneNumber)
+                .withText("Adres zamieszkania", Font.font("Tahoma", FontWeight.NORMAL, 16))
+                .withTextField("Miasto", nm.registredTown)
+                .withTextField("Ulica", nm.registredStreet)
+                .withTextField("Numer domu", nm.registredStreetNumber)
+                .withTextField("Numer mieszkania", nm.registredFlatNumber)
+                .withTextField("Kod Pocztowy", nm.registredPostalCode)
+                .withText("Adres kontaktowy", Font.font("Tahoma", FontWeight.NORMAL, 16))
+                .withText("Taki sam jak zamieszkania", Font.font("Tahoma", FontWeight.NORMAL, 14))
+                .withCheckBox(nm.sameAdress)
+                .withTextField("Miasto", nm.contactTown)
+                .withTextField("Ulica", nm.contactStreet)
+                .withTextField("Numer domu", nm.contactStreetNumber)
+                .withTextField("Numer mieszkania", nm.contactFlatNumber)
+                .withTextField("Kod Pocztowy", nm.contactPostalCode)
                 .withButton("Dodaj użytkownika", controller.addNewUser(nm))
                 .build();
     }

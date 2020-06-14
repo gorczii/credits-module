@@ -1,5 +1,6 @@
 package credits.view;
 
+import credits.SQL.Model.Repayment;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,6 +40,13 @@ public class WindowBuilder {
         return this;
     }
 
+    public WindowBuilder withButton(String text, Button button, EventHandler onClick) {
+        button.setText(text);
+        button.setOnAction(onClick);
+        grid.add(button, 0, rowCounter++);
+        return this;
+    }
+
     public WindowBuilder withTextField(String label, TextField textField) {
         Label l = new Label(label);
         grid.add(l, 0, rowCounter);
@@ -57,6 +65,13 @@ public class WindowBuilder {
         Label l = new Label(label);
         grid.add(l, 0, rowCounter);
         grid.add(comboBox, 1, rowCounter++);
+        return this;
+    }
+
+    public WindowBuilder withListView(String label, ListView listView) {
+        Label l = new Label(label);
+        grid.add(l, 0, rowCounter);
+        grid.add(listView, 1, rowCounter++);
         return this;
     }
 
@@ -107,5 +122,6 @@ public class WindowBuilder {
         Scene scene = new Scene(grid, width, height);
         primaryStage.setScene(scene);
     }
+
 
 }

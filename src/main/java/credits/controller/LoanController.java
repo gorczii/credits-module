@@ -110,7 +110,6 @@ public class LoanController {
     }
 
     public Collection<LoanApplication> getAllLoanApplications() {
-        // TODO: pobierz wszystkie loan applications do przetworzenia (nie zaakceptowane i nie odrzucone) z bazy+
 
         Collection<LoanApplication> loanApplications = new LinkedList<LoanApplication>();
         try (Connection connection = ConnectionManager.getConnection();
