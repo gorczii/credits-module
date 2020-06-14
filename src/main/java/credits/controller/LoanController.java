@@ -6,6 +6,7 @@ import credits.SQL.SqlDataProvider;
 import credits.SQL.Statements;
 import credits.SQL.Model.LoanApplication;
 import credits.model.LoanApplicationViewModel;
+import credits.view.InfoModal;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -36,12 +37,13 @@ public class LoanController {
             try {
                 LoanApplicationForm form = toApplicationForm(loanApplication);
                 if(SqlDataProvider.makeLoanApplication(form)) {
-                    System.out.println("Succesfully created form");
+                    InfoModal infoModal = new InfoModal("Sukces", "Pomyślnie złożono wniosek!");
+                    infoModal.show();
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                InfoModal infoModal = new InfoModal("Wystąpił błąd", ex.getMessage());
+                infoModal.show();
             }
-
             System.out.println("Wniosek kredytowy złożony: " + loanApplication);
         };
     }
