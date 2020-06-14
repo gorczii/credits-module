@@ -5,6 +5,7 @@ import credits.SQL.Model.NewDocument;
 import credits.SQL.Model.NewUser;
 import credits.SQL.SqlDataProvider;
 import credits.model.NewUserApplicationNewModel;
+import credits.view.InfoModal;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -57,9 +58,11 @@ public class NewUserController {
             }
 
             if (SqlDataProvider.addUser(newUser, registredAddress, contactAddress, newDocument)) {
-                //TODO: Popup -> udało się i wyjdz z okna
+                InfoModal infoModal = new InfoModal("Sukces", "Pomyślnie dodano użytkownika!");
+                infoModal.show();
             } else {
-                //TODO: Popup -> cos sie zjebalo sprobuj ponownie
+                InfoModal infoModal = new InfoModal("Błąd", "Wystąpił błąd podczas dodawania użytkownika");
+                infoModal.show();
             }
 
         };

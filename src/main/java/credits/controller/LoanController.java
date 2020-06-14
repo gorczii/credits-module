@@ -149,8 +149,10 @@ public class LoanController {
         return e -> {
             try {
                 double amount = Double.parseDouble(la.loanAmount.getText());
+                double interestRate = Double.parseDouble(la.interestRate.getText());
+                double commission = Double.parseDouble(la.commission.getText());
                 int numberOfRepayments = Integer.parseInt(la.numberOfRepayments.getText());
-                double repayment = amount / numberOfRepayments;
+                double repayment = (amount + (amount * interestRate / 100) + commission) / numberOfRepayments;
                 repaymentAmount.setText("Wysokość raty kredytu: " + String.format("%.2f", repayment));
             } catch (Exception ex) {
                 InfoModal infoModal = new InfoModal("Błąd", "Wystąpił błąd w obliczaniu raty kredytu");

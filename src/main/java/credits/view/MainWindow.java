@@ -23,7 +23,6 @@ public class MainWindow {
                 .withText("Strona główna", Font.font("Tahoma", FontWeight.NORMAL, 14))
                 .withButton("Nowy wniosek kredytowy", controller.openNewLoanApplicationWindow())
                 .withButton("Akceptuj/odrzuć wnioski", controller.openAcceptLoanApplicationWindow())
-                .withButton("Modyfikuj harmonogram spłat", controller.openRepaymentScheduleWindow())
                 .withButton("Pokaż harmonogram spłat", controller.openShowRepaymentsWindows())
                 .withButton("Dodaj nowego użytkownika", controller.openNewUserWindow())
                 .build();

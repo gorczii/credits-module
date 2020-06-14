@@ -4,6 +4,7 @@ import credits.SQL.Model.*;
 import credits.SQL.SqlDataProvider;
 import credits.model.LoanApplicationViewModel;
 import credits.model.ShowRepaymentsViewModel;
+import credits.view.InfoModal;
 import credits.view.ShowNewUserWindow;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -47,7 +48,8 @@ public class ShowRepaymentsController {
     public EventHandler onAddRepaymentClicked(ShowRepaymentsViewModel viewModel) {
         return e -> {
             if (Double.parseDouble(viewModel.repaymentValue.getText()) > Double.parseDouble(viewModel.creditLeft.getText())) {
-                //TODO: Add modal here: nie możesz zapłacić więcej kredytu niż masz do spłacenia xD
+                InfoModal infoModal = new InfoModal("Błąd", "Wpłata nie może być większa niż pozostała kwota.");
+                infoModal.show();
                 System.out.println("test");
                 return;
             }
