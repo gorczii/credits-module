@@ -1,7 +1,7 @@
 package credits.view;
 
 import credits.controller.RepaymentScheduleController;
-import credits.model.DbLoanApplication;
+import credits.SQL.Model.LoanApplication;
 import credits.model.RepaymentScheduleViewModel;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
@@ -14,23 +14,23 @@ import javafx.stage.Stage;
 public class CreateRepaymentScheduleWindow {
 
     private RepaymentScheduleController controller;
-    private DbLoanApplication dbLoanApplication;
+    private LoanApplication loanApplication;
     private Stage stage;
 
-    public CreateRepaymentScheduleWindow(RepaymentScheduleController controller, DbLoanApplication dbLoanApplication) {
+    public CreateRepaymentScheduleWindow(RepaymentScheduleController controller, LoanApplication loanApplication) {
         super();
         this.controller = controller;
-        this.dbLoanApplication = dbLoanApplication;
+        this.loanApplication = loanApplication;
         init();
     }
 
     private void init() {
-        RepaymentScheduleViewModel rs = new RepaymentScheduleViewModel(dbLoanApplication);
+        RepaymentScheduleViewModel rs = new RepaymentScheduleViewModel(loanApplication);
         Text singleInst = new Text("\n");
 
         WindowBuilder builder = new WindowBuilder("Nowy harmonogram spłat", 800, 400)
                 .withText("Nowy harmonogram spłat", Font.font("Tahoma", FontWeight.NORMAL, 20))
-                .withText(dbLoanApplication.getInfo(), Font.font("Tahoma", FontWeight.NORMAL, 12))
+                .withText(loanApplication.getInfo(), Font.font("Tahoma", FontWeight.NORMAL, 12))
                 .withTextField("Kwota kredytu", rs.loanAmount)
                 .withTextField("Liczba rat", rs.numberOfRepayments)
                 .withButton("Oblicz wysokość raty", showSingleInstallmentAmount(singleInst, rs))

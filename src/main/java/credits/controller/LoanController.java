@@ -1,14 +1,15 @@
 package credits.controller;
 
 import credits.SQL.ConnectionManager;
+import credits.SQL.Model.LoanApplicationForm;
+import credits.SQL.SqlDataProvider;
 import credits.SQL.Statements;
-import credits.model.DbLoanApplication;
+import credits.SQL.Model.LoanApplication;
 import credits.model.LoanApplicationViewModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 
 import java.sql.*;
@@ -18,26 +19,98 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static credits.SQL.SqlDataProvider.acceptLoanApplication;
+import static credits.SQL.SqlDataProvider.rejectLoanApplication;
+
 public class LoanController {
 
-    public EventHandler<ActionEvent> sendLoanApplication(LoanApplicationViewModel loanApplication,
-                                                         ComboBox creditTypeComboBox, ComboBox currencyComboBox) {
+    public class InputException extends java.lang.Exception {
+        public InputException(String message) {
+            super(message);
+        }
+    }
+
+
+    public EventHandler<ActionEvent> sendLoanApplication(LoanApplicationViewModel loanApplication) {
         return e -> {
-            String creditType = (String) creditTypeComboBox.getValue();
-            String currency = (String) currencyComboBox.getValue();
-            // TODO: wysłać wniosek do db
+            try {
+                LoanApplicationForm form = toApplicationForm(loanApplication);
+                if(SqlDataProvider.makeLoanApplication(form)) {
+                    System.out.println("Succesfully created form");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 
             System.out.println("Wniosek kredytowy złożony: " + loanApplication);
         };
     }
 
-    public Collection<DbLoanApplication> getAllLoanApplications() {
-        // TODO: pobierz wszystkie loan applications do przetworzenia (nie zaakceptowane i nie odrzucone) z bazy
-        Collection<DbLoanApplication> loanApplications = new LinkedList<DbLoanApplication>();
+
+    private boolean isEmpty(LoanApplicationViewModel loanApplication) {
+        return loanApplication.monthlyIncome.getText().isEmpty()
+            || loanApplication.formOfEmployment.getText().isEmpty()
+            || loanApplication.maritalStatue.getText().isEmpty()
+            || loanApplication.monthlyCostsOfLiving.getText().isEmpty()
+            || loanApplication.otherDebtsMonthlyPayments.getText().isEmpty()
+            || loanApplication.employerName.getText().isEmpty()
+            || loanApplication.employerContactData.getText().isEmpty()
+            || loanApplication.loanAmount.getText().isEmpty()
+            || loanApplication.ownContribution.getText().isEmpty()
+            || loanApplication.creditPurpose.getText().isEmpty()
+            || loanApplication.interestRate.getText().isEmpty()
+            || loanApplication.loanCollateral.getText().isEmpty()
+            || loanApplication.commission.getText().isEmpty();
+    }
+
+    private LoanApplicationForm toApplicationForm(LoanApplicationViewModel viewModel) throws Exception {
+        if (isEmpty(viewModel)) {
+            throw new InputException("Nie można wysłać wniosku z pustymi polami");
+        }
+
+        int userId = viewModel.userId.getValue().getId();
+        double monthlyIncome = Double.parseDouble(viewModel.monthlyIncome.getText());
+        String formOfEmployment = viewModel.formOfEmployment.getText();
+        String martialStatue = viewModel.maritalStatue.getText();
+        double monthlyCostOfLiving = Double.parseDouble(viewModel.monthlyCostsOfLiving.getText());
+        double otherDebtsMonthlyPayments = Double.parseDouble(viewModel.otherDebtsMonthlyPayments.getText());
+        String employerName = viewModel.monthlyIncome.getText();
+        String employerContactData = viewModel.employerContactData.getText();
+        double loanAmount = Double.parseDouble(viewModel.loanAmount.getText());
+        double ownContribution = Double.parseDouble(viewModel.ownContribution.getText());
+        String creditPurpose = viewModel.creditPurpose.getText();
+        String interestRate = viewModel.interestRate.getText();
+        String loanCollateral = viewModel.loanCollateral.getText();
+        double commission = Double.parseDouble(viewModel.commission.getText());
+        int creditTypeId = viewModel.creditType.getValue().getId();
+        int currencyId = viewModel.currency.getValue().getId();
+
+        if (loanAmount <= 0.0) {
+            throw new InputException("Wysokość kredytu musi być większa od 0.0");
+        }
+
+        if (ownContribution > loanAmount) {
+            throw new InputException("Wkłąd własny nie może być większy od wysokości kredytu");
+        }
+
+        if (commission > loanAmount) {
+            throw new InputException("Porowizja kredytu nie może być większa od wysokości kredytu");
+
+        }
+
+        return new LoanApplicationForm(userId, monthlyIncome, formOfEmployment, martialStatue, monthlyCostOfLiving, otherDebtsMonthlyPayments,
+                employerName, employerContactData, loanAmount, ownContribution, creditPurpose, interestRate, loanCollateral, commission,
+                creditTypeId, currencyId, 0);
+
+    }
+
+    public Collection<LoanApplication> getAllLoanApplications() {
+        // TODO: pobierz wszystkie loan applications do przetworzenia (nie zaakceptowane i nie odrzucone) z bazy+
+
+        Collection<LoanApplication> loanApplications = new LinkedList<LoanApplication>();
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(Statements.getAllLoanApplications)) {
-
             while (resultSet.next())
             {
                 int loanApplicationId = resultSet.getInt(1);
@@ -58,7 +131,7 @@ public class LoanController {
                 int creditTypeId = resultSet.getInt(16);
                 String currency = resultSet.getString(17);
 
-                DbLoanApplication loanApplication = new DbLoanApplication(loanApplicationId, userId, monthlyIncome,formOfEmployment,
+                LoanApplication loanApplication = new LoanApplication(loanApplicationId, userId, monthlyIncome,formOfEmployment,
                 martialStatus,costsOfLiving,otherDebts,employerName,employerContact,loanAmmount,ownContribution,creditPurpose
                         ,interestRate,loanCollateral,commission, creditTypeId,currency);
                 loanApplications.add(loanApplication);
@@ -69,17 +142,7 @@ public class LoanController {
         return loanApplications;
     }
 
-    private boolean acceptLoanApplication(Integer id) {
-        try (Connection connection = ConnectionManager.getConnection();
-             CallableStatement statement = connection.prepareCall(Statements.acceptLoanApplication);) {
-            statement.setInt(1, id);
-            statement.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 
     public EventHandler acceptLoanApplications(List<CheckBox> checkBoxes) {
         return e -> {
@@ -93,18 +156,6 @@ public class LoanController {
             }
             ((Node)(e.getSource())).getScene().getWindow().hide();
         };
-    }
-
-    private boolean rejectLoanApplication(Integer id) {
-        try (Connection connection = ConnectionManager.getConnection();
-             CallableStatement statement = connection.prepareCall(Statements.rejectLoanApplication);) {
-            statement.setInt(1, id);
-            statement.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     public EventHandler rejectLoanApplications(List<CheckBox> checkBoxes) {

@@ -1,6 +1,6 @@
-package credits.model;
+package credits.SQL.Model;
 
-public class DbLoanApplication {
+public class LoanApplication {
 
     public int loanApplicationId;
     public int userId;
@@ -20,11 +20,11 @@ public class DbLoanApplication {
     public int creditTypeId;
     public String currency;
 
-    public DbLoanApplication(int loanApplicationId, int userId, double monthlyIncome, String formOfEmployment,
-                             String maritalStatue, double monthlyCostsOfLiving, double otherDebtsMonthlyPayments,
-                             String employerName, String employerContactData, double loanAmount,
-                             double ownContribution, String creditPurpose, double interestRate, String loanCollateral,
-                             double commission, int creditTypeId, String currency) {
+    public LoanApplication(int loanApplicationId, int userId, double monthlyIncome, String formOfEmployment,
+                           String maritalStatue, double monthlyCostsOfLiving, double otherDebtsMonthlyPayments,
+                           String employerName, String employerContactData, double loanAmount,
+                           double ownContribution, String creditPurpose, double interestRate, String loanCollateral,
+                           double commission, int creditTypeId, String currency) {
         this.loanApplicationId = loanApplicationId;
         this.userId = userId;
         this.monthlyIncome = monthlyIncome;

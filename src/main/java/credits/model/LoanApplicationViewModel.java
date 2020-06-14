@@ -1,10 +1,14 @@
 package credits.model;
 
+import credits.SQL.Model.CreditType;
+import credits.SQL.Model.Currency;
+import credits.SQL.Model.User;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 public class LoanApplicationViewModel {
 
-    public TextField userId;
+    public ComboBox<User> userId;
     public TextField monthlyIncome;
     public TextField formOfEmployment;
     public TextField maritalStatue;
@@ -18,11 +22,11 @@ public class LoanApplicationViewModel {
     public TextField interestRate;
     public TextField loanCollateral;
     public TextField commission;
-    public TextField creditTypeId;
-    public TextField currencyId;
+    public ComboBox<CreditType> creditType;
+    public ComboBox<Currency> currency;
 
     public LoanApplicationViewModel() {
-        userId = new TextField();
+        userId = new ComboBox<>();
         monthlyIncome = new TextField();
         formOfEmployment = new TextField();
         maritalStatue = new TextField();
@@ -36,8 +40,8 @@ public class LoanApplicationViewModel {
         interestRate = new TextField();
         loanCollateral = new TextField();
         commission = new TextField();
-        creditTypeId = new TextField();
-        currencyId = new TextField();
+        creditType = new ComboBox<>();
+        currency = new ComboBox<>();
     }
 
 //    public LoanApplicationViewModel(String userId, String monthlyIncome, String formOfEmployment, String maritalStatu,
@@ -52,7 +56,7 @@ public class LoanApplicationViewModel {
     @Override
     public String toString() {
         return "LoanApplicationViewModel{" +
-                "userId=" + userId.getCharacters() +
+                "userId=" + userId.toString() +
                 ", monthlyIncome=" + monthlyIncome.getCharacters() +
                 ", formOfEmployment=" + formOfEmployment +
                 ", maritalStatue=" + maritalStatue.getCharacters() +
@@ -66,8 +70,8 @@ public class LoanApplicationViewModel {
                 ", interestRate=" + interestRate.getCharacters() +
                 ", loanCollateral=" + loanCollateral.getCharacters() +
                 ", commission=" + commission.getCharacters() +
-                ", creditTypeId=" + creditTypeId.getCharacters() +
-                ", currencyId=" + currencyId.getCharacters() +
+                ", creditTypeId=" + creditType.toString() +
+                ", currencyId=" + currency.toString() +
                 '}';
     }
 }

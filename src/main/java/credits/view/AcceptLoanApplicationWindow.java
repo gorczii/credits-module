@@ -1,7 +1,7 @@
 package credits.view;
 
 import credits.controller.LoanController;
-import credits.model.DbLoanApplication;
+import credits.SQL.Model.LoanApplication;
 import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 
@@ -21,7 +21,7 @@ public class AcceptLoanApplicationWindow {
     }
 
     private void init() {
-        Collection<DbLoanApplication> loanApplications = controller.getAllLoanApplications();
+        Collection<LoanApplication> loanApplications = controller.getAllLoanApplications();
 
         WindowBuilder builder = new WindowBuilder("Wnioski kredytowe", 600, 275);
         List<CheckBox> checkBoxes = loanApplications.stream()

@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 
 /**
@@ -46,6 +48,16 @@ public class WindowBuilder {
         Label l = new Label(label);
         grid.add(l, 0, rowCounter);
         grid.add(comboBox, 1, rowCounter++);
+        return this;
+    }
+
+    public WindowBuilder withFormattedTextField(String label, TextField textField, TextFormatter formatter) {
+        Label l = new Label(label);
+        if (formatter != null) {
+            textField.setTextFormatter(formatter);
+        }
+        grid.add(l, 0, rowCounter);
+        grid.add(textField, 1, rowCounter++);
         return this;
     }
 

@@ -1,7 +1,7 @@
 package credits.controller;
 
-import credits.MockLoanApplications;
-import credits.model.DbLoanApplication;
+import credits.SQL.SqlDataProvider;
+import credits.SQL.Model.LoanApplication;
 import credits.model.RepaymentScheduleViewModel;
 import credits.view.CreateRepaymentScheduleWindow;
 import javafx.event.EventHandler;
@@ -11,9 +11,9 @@ import java.util.Collection;
 public class RepaymentScheduleController {
 
 
-    public Collection<DbLoanApplication> getAcceptedLoanApplications() {
+    public Collection<LoanApplication> getAcceptedLoanApplications() {
         // TODO: pobierz zaakceptowane loan applications z bazy
-        return MockLoanApplications.get();
+        return new SqlDataProvider().getAcceptedLoans();
     }
 
     public EventHandler saveRepaymentSchedule(RepaymentScheduleViewModel rs) {
@@ -24,7 +24,7 @@ public class RepaymentScheduleController {
         };
     }
 
-    public EventHandler openCreateRepaymentScheduleWindow(DbLoanApplication loanApplication) {
+    public EventHandler openCreateRepaymentScheduleWindow(LoanApplication loanApplication) {
         return e -> {
             new CreateRepaymentScheduleWindow(this, loanApplication).show();
             System.out.println("Utworzono nowy harmonogram spłat");

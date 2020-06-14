@@ -1,6 +1,7 @@
 package credits;
 
 import credits.SQL.ConnectionManager;
+import credits.SQL.SqlDataProvider;
 import credits.controller.MainWindowController;
 import credits.view.MainWindow;
 import javafx.application.Application;
@@ -10,16 +11,16 @@ import java.sql.*;
 
 public class Main extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {    
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-
-
-
-        ResultSet resultSet = null;
+        SqlDataProvider provider = new SqlDataProvider();
+        System.out.println(provider.getAllCreditTypes());
+        System.out.println(provider.getAllCurrencies());
+        System.out.println(provider.getAllUsers());
 
 
         MainWindowController mainWindowController = new MainWindowController();
